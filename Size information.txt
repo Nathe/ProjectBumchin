@@ -1,4 +1,4 @@
-xlarge
+x-large
 
 xhdpi 100
 hdpi 75
