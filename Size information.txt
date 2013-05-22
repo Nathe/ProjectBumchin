@@ -1,0 +1,27 @@
+xlarge
+
+xhdpi 100
+hdpi 75
+mdpi 50
+ldpi 37.5
+
+large
+
+xhdpi 66.6r
+hdpi 50
+mdpi 33.3r
+ldpi 25
+
+normal
+ 
+xhdpi 48.95 x 44.4r
+hdpi 36.71875 x 33.3r
+mdpi 24.4791 x 22.2r
+ldpi 18.359375 x 16.6r
+
+small
+
+xhdpi 44.375 x 44.4r
+hdpi 33.28125 x 33.3r
+mdpi 22.1875 x 22.2r
+ldpi 16.614 x 16.6r
