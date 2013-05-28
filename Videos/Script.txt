@@ -1,19 +1,31 @@
+
 s: 	Hello welcome to bumchin games! I'm Sam, I do programming and sound
+
 n: 	and I'm Nathe, I'm in charge of programming and art!
+
 s: 	Our first game is Train Raid which is an android tower defence game with a difference
+
 n: 	Rather than defending a base using towers, the idea is to upgrade a train. This should make for some interesting gameplay
+
 s: 	Currently, the project has a simple prototype level but there is still much to be done, that's why we've created this kickstarter!
+
 n: 	Since the game's framework is already in place, we're looking to fund extra features to be added using stretch goals
+
 s: 	Two features we're especially excited about are at the £100 and £500 stretch goals, which are for equipement. The idea is that at the end of a sucessful level, you could unlock
 	a new item which could be equipped to the train.
+	
 n:	These items could be new armour or a turret which could be used in subsequent levels. This would add replay value and a higher depth of strategy to the game.
+
 s:	Backing this project for £1 will earn you a copy of the game at release. £5 or more will get you a mention in the credits. £10 will get you a digital art book as well as a thank
 	you email from us
+	
 n:	£25 will give you a choice of a bumchin games T-Shirt or a Train Raid t-shirt, and finally £50 will let you design your own turret for use in the game, as well as a Skype conversation
 	with us.
-	(ON SCREEN): turret pending approval from devs
+	
 s:	Train Raid started as a university project, but we feel that it has the potential to be a successful game.
+
 n: 	We're really excited about Train Raid and we'd love for it to get a big following on Kickstarter, so don't forget to tell your friends, like us on facebook and follow us on Twitter for updates!
+
 s: 	We'll also be creating videos for youtube to keep you updated with new features and progress, so make sure to subscribe to us there!
 
 s:	Thanks for watching, and we hope you will join us on this journey of Train Raid!
