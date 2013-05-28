@@ -37,7 +37,7 @@ public class Game extends Activity
 		
 		// Create the initial entities
 		
-		// Add the entities to the screen	
+		// Add the entities to the screen
 		Bitmap speedboat = BitmapFactory.decodeResource(getResources(), R.drawable.speedboat);
 		Bitmap train = BitmapFactory.decodeResource(getResources(), R.drawable.train);
 		Bitmap tower1 = BitmapFactory.decodeResource(getResources(), R.drawable.turret1);

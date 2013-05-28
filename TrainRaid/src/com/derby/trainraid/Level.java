@@ -8,7 +8,6 @@ private String[] _enemyType;
 private int _enemyTypeNo;
 private int _levelDistance;
 protected int _distanceTravelled;
-private int _trainSpeed;
 private String _levelName;
 
 
