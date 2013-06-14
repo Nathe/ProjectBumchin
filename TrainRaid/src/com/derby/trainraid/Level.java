@@ -4,8 +4,6 @@ public abstract class Level
 {
 private String _backgroundPath;
 private int _startMoney;
-private String[] _enemyType;
-private int _enemyTypeNo;
 private int _levelDistance;
 protected int _distanceTravelled;
 private String _levelName;
@@ -48,16 +46,6 @@ public Level(String loc, int money, int distance, int travelledDistance, String 
 	{
 		_distanceTravelled = _distanceTravelled + amount;
 		return _distanceTravelled;
-	}
-
-	public String GetEnemyType(int pos)
-	{
-		return _enemyType[pos];
-	}
-
-	public int GetEnemyTypeNo()
-	{
-		return _enemyTypeNo = _enemyType.length;
 	}
 
 	public void addMoney(int amtToAdd)

@@ -6,8 +6,8 @@ public class Entity{ //extends Activity{
 
 	private int hitPoints;
 	private int _bitmapid;
-	private int _x;
-	private int _y;
+	private float _x;
+	private float _y;
 	private BoundingBox boundingBox;
 	private boolean hidden = false;
 	private int maxHitPoints;
@@ -16,7 +16,7 @@ public class Entity{ //extends Activity{
 	
 	//Constructor for creating a basic entity. Takes four parameters,
 	//The hit points you want to assign, bitmap, X location and Y location.
-	public Entity(int hitPoints, int bitmapid, int x, int y)
+	public Entity(int hitPoints, int bitmapid, float x, float y)
 	{
 		SetHitPoints(hitPoints);
 		SetBitmapID(bitmapid);
@@ -41,23 +41,23 @@ public class Entity{ //extends Activity{
 	}
 	
 	//Public Methods
-	public int GetX()
+	public float GetX()
 	{
 		return _x;
 	}
 	
-	public void SetX(int x)
+	public void SetX(float x)
 	{
 		boundingBox.setBoundingBoxPos(x, boundingBox.getBoundingBox().top, boundingBox.getBoundingBox().bottom - boundingBox.getBoundingBox().top, boundingBox.getBoundingBox().right - boundingBox.getBoundingBox().left);
 		_x = x;
 	}
 	
-	public int GetY()
+	public float GetY()
 	{
 		return _y;
 	}
 	
-	public void SetY(int y)
+	public void SetY(float y)
 	{
 		boundingBox.setBoundingBoxPos(boundingBox.getBoundingBox().left, y, boundingBox.getBoundingBox().bottom - boundingBox.getBoundingBox().top, boundingBox.getBoundingBox().right - boundingBox.getBoundingBox().left);
 		_y = y;
@@ -104,7 +104,7 @@ public class Entity{ //extends Activity{
 	
 	public void UpdateBoundingBox(int height, int width)
 	{
-		boundingBox.setBoundingBoxPos(this._x, this._y, height, width);
+		boundingBox.setBoundingBoxPos((int)_x, (int)_y, height, width);
 	}
 	
 	public boolean getHidden()

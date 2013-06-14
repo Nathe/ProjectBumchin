@@ -4,77 +4,74 @@ package com.derby.trainraid;
 import android.graphics.Point;
 
 
-public abstract class AttackEntity extends Entity{
-	public AttackEntity(int hitPoints, int fileLoc, int x, int y, int shotSpeed, Entity currentTarget) 
+public abstract class AttackEntity extends Entity
+{
+	public AttackEntity(int hitPoints, int fileLoc, float x, float y, int shotSpeed, int damagePerShot, Entity currentTarget) 
 	{
 		super(hitPoints, fileLoc, x, y);
-		this.shotSpeed = shotSpeed;
-		this.currentTarget = currentTarget;
-		// TODO Auto-generated constructor stub
+		_damagePerShot = damagePerShot;
+		_shotSpeed = shotSpeed;
+		_currentTarget = currentTarget;
 	}
-	String preferedTarget;
-	Entity currentTarget;
-	int damagePerShot;
-	int shotSpeed;
-	int timeSinceShot;
+	
+	Entity _currentTarget;
+	private int _damagePerShot;
+	private int _shotSpeed;
+	private int _timeSinceShot;
 	
 	public Point GetTargetMiddle()
 	{
 		Point result = new Point();
-		result.x = currentTarget.GetX() + (currentTarget.getWidth() / 2);
-		result.y = currentTarget.GetY() + (currentTarget.getHeight() / 2);
+		result.x = (int)_currentTarget.GetX() + (_currentTarget.getWidth() / 2);
+		result.y = (int)_currentTarget.GetY() + (_currentTarget.getHeight() / 2);
 		return result;
 	}
-	
-	void setPreferedTarget(String target)
-	{
-		preferedTarget = target;
-	}
-	void setCurrentTarget(Entity target)
-	{
-		currentTarget = target;
-	}
-	void setDamagePerShot(int damage)
-	{
-		damagePerShot = damage;
-	}
-	int getShotSpeed()
-	{
-		return shotSpeed;
-	}
-	void setShotSpeed(int speed)
-	{
-		shotSpeed = speed;
-	}
-	
-	String getPreferedTarget()
-	{
-		return preferedTarget;
-	}
+
 	Entity getCurrentTarget()
 	{
-		return currentTarget;
+		return _currentTarget;
 	}
+	
+	void setCurrentTarget(Entity target)
+	{
+		_currentTarget = target;
+	}
+	
 	int getDamagePerShot()
 	{
-		return damagePerShot;
+		return _damagePerShot;
 	}
 	
-	void ChangeTarget(Entity newTarget)
+	void setDamagePerShot(int damage)
 	{
-		currentTarget = newTarget;
+		_damagePerShot = damage;
 	}
 	
-	abstract Projectile Shoot(int bulletHeight, int bulletWidth);
+	int getShotSpeed()
+	{
+		return _shotSpeed;
+	}
 	
+	void setShotSpeed(int speed)
+	{
+		_shotSpeed = speed;
+	}
+		
 	public int getTimeSinceShot()
 	{
-		return timeSinceShot;
+		return _timeSinceShot;
 	}
 	
 	public void IncrementTimeSinceShot()
 	{
-		timeSinceShot++;
+		_timeSinceShot++;
+	}
+	
+	Projectile Shoot(int bulletHeight, int bulletWidth)
+	{
+		_timeSinceShot = 0;
+		Projectile p = new Projectile(20, 6, super.GetX(), super.GetY(), _damagePerShot, _currentTarget.GetX()+_currentTarget.getWidth(), _currentTarget.GetY());
+		return p;
 	}
 	
 }

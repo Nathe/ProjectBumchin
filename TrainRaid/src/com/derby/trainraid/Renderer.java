@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.view.Display;
@@ -25,52 +24,52 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 {
 	Paint paint = new Paint();	
 	
-	List<BuildPoints> buildPointList = new ArrayList<BuildPoints>();
+	List<TurretSlot> towerSlotList = new ArrayList<TurretSlot>();
 	Point convertPoint1 = MilliPointToPoint(375, 870);
 	Point convertPoint2 = MilliPointToPoint(429, 1000);	
-	BuildPoints point1 = new BuildPoints(convertPoint1.x, convertPoint2.x, convertPoint1.y, convertPoint2.y);
+	TurretSlot point1 = new TurretSlot(convertPoint1.x, convertPoint2.x, convertPoint1.y, convertPoint2.y);
 	
 	Point convertPoint3 = MilliPointToPoint(430, 870);
 	Point convertPoint4 = MilliPointToPoint(485, 1000);
-	BuildPoints point2 = new BuildPoints(convertPoint3.x, convertPoint4.x, convertPoint3.y, convertPoint4.y);
+	TurretSlot point2 = new TurretSlot(convertPoint3.x, convertPoint4.x, convertPoint3.y, convertPoint4.y);
 	
 	Point convertPoint5 = MilliPointToPoint(500, 870);
 	Point convertPoint6 = MilliPointToPoint(555, 1000);
-	BuildPoints point3 = new BuildPoints(convertPoint5.x, convertPoint6.x, convertPoint5.y, convertPoint6.y);
+	TurretSlot point3 = new TurretSlot(convertPoint5.x, convertPoint6.x, convertPoint5.y, convertPoint6.y);
 	
 	Point convertPoint7 = MilliPointToPoint(560, 870);
 	Point convertPoint8 = MilliPointToPoint(615, 1000);
-	BuildPoints point4 = new BuildPoints(convertPoint7.x, convertPoint8.x, convertPoint7.y, convertPoint8.y);
+	TurretSlot point4 = new TurretSlot(convertPoint7.x, convertPoint8.x, convertPoint7.y, convertPoint8.y);
 	
 	Point convertPoint9 = MilliPointToPoint(716, 870);
 	Point convertPoint10 = MilliPointToPoint(771, 1000);
-	BuildPoints point5 = new BuildPoints(convertPoint9.x, convertPoint10.x, convertPoint9.y, convertPoint10.y);
+	TurretSlot point5 = new TurretSlot(convertPoint9.x, convertPoint10.x, convertPoint9.y, convertPoint10.y);
 	
 	Point convertPoint11 = MilliPointToPoint(770, 870);
 	Point convertPoint12 = MilliPointToPoint(825, 1000);
-	BuildPoints point6 = new BuildPoints(convertPoint11.x, convertPoint12.x, convertPoint11.y, convertPoint12.y);
+	TurretSlot point6 = new TurretSlot(convertPoint11.x, convertPoint12.x, convertPoint11.y, convertPoint12.y);
 	
 	// Turret Menu System	
-	List<BuildPoints> menuList = new ArrayList<BuildPoints>();
+	
+	Menu menu = new Menu();
 	Point turret1Point1 = MilliPointToPoint(375, 770);
 	Point turret1Point2 = MilliPointToPoint(429, 900);	
-	BuildPoints turret1 = new BuildPoints(turret1Point1.x, turret1Point2.x, turret1Point1.y, turret1Point2.y);
+	TurretSlot turret1 = new TurretSlot(turret1Point1.x, turret1Point2.x, turret1Point1.y, turret1Point2.y);
 	
 	Point turret2Point1 = MilliPointToPoint(475, 770);
 	Point turret2Point2 = MilliPointToPoint(529, 900);	
-	BuildPoints turret2 = new BuildPoints(turret2Point1.x, turret2Point2.x, turret2Point1.y, turret2Point2.y);
+	TurretSlot turret2 = new TurretSlot(turret2Point1.x, turret2Point2.x, turret2Point1.y, turret2Point2.y);
 	
 	Point turret3Point1 = MilliPointToPoint(575, 770);
 	Point turret3Point2 = MilliPointToPoint(629, 900);	
-	BuildPoints turret3 = new BuildPoints(turret3Point1.x, turret3Point2.x, turret3Point1.y, turret3Point2.y);
+	TurretSlot turret3 = new TurretSlot(turret3Point1.x, turret3Point2.x, turret3Point1.y, turret3Point2.y);
 	
-	TowerSelect selectTower = new TowerSelect();
 	PanelThread _thread;
 	List<Entity> _renderList = new ArrayList<Entity>();
 	List<AttackEntity> _enemyList = new ArrayList<AttackEntity>();
 	List<Projectile> _projectilesList = new ArrayList<Projectile>();
     List<Projectile> _enemyprojectilesList = new ArrayList<Projectile>();
-	List<AttackEntity> _towerList = new ArrayList<AttackEntity>(); 
+	List<AttackEntity> _turretList = new ArrayList<AttackEntity>(); 
 	Level currentLevel = new Level1();
 
 	Bitmap _background1 = BitmapFactory.decodeResource(getResources(), com.derby.trainraid.R.drawable.beachbackground);
@@ -86,8 +85,8 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 	int bulletHeight;
 	int bulletWidth;
 
-	boolean turretMenuActive = false;
-	BuildPoints selectedPoint = null;
+	boolean menuVisible = false;
+	TurretSlot activeTowerSlot = null;
 	
 	public Renderer(Context context, List<Entity> renderList)
 	{	
@@ -97,15 +96,12 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 		Point cabPos = MilliPointToPoint(360, 872);
 		_carriage = new Entity(100, 5, cabPos.x, cabPos.y);
 		getHolder().addCallback(this);
-		buildPointList.add(point1);
-		buildPointList.add(point2);
-		buildPointList.add(point3);
-		buildPointList.add(point4);
-		buildPointList.add(point5);
-		buildPointList.add(point6);
-		menuList.add(turret1);
-		menuList.add(turret2);
-		menuList.add(turret3);
+		towerSlotList.add(point1);
+		towerSlotList.add(point2);
+		towerSlotList.add(point3);
+		towerSlotList.add(point4);
+		towerSlotList.add(point5);
+		towerSlotList.add(point6);
 	}
 	
 	private void Retrieve()
@@ -176,7 +172,7 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 		// if the negative value of the background = the size of the value loop
 	}
 	
-	private void drawHealthBar(Canvas canvas, Paint paint, int x, int y, int hitPoints, int maxHitPoints)
+	private void drawHealthBar(Canvas canvas, Paint paint, float x, float y, int hitPoints, int maxHitPoints)
 	{
 		paint.setColor(Color.rgb(255, 0, 0));
 		paint.setStrokeWidth(10);
@@ -220,12 +216,11 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 		
 	@Override
 	public void onDraw(Canvas canvas)
-	{				
+	{						
 		// Draw enemies
 		
 		if(_renderList.size() != 0 && _renderList != null)
 		{
-			
 			// Print Background
 			MoveBackground();
 			canvas.drawBitmap(_background1, _background1X, 0, paint);  
@@ -279,13 +274,13 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
             }
 			
 			// Render towers
-			for(int i = 0; i < _towerList.size(); i++) // This loop keeps looping over and over after the level ends
+			for(int i = 0; i < _turretList.size(); i++) // This loop keeps looping over and over after the level ends
 			{
-				canvas.drawBitmap(Bitmaps.list.get(_towerList.get(i).GetBitmapID()), _towerList.get(i).GetX(), _towerList.get(i).GetY(), paint);
+				canvas.drawBitmap(Bitmaps.list.get(_turretList.get(i).GetBitmapID()), _turretList.get(i).GetX(), _turretList.get(i).GetY(), paint);
 			}
 			
 			// Render Turret Menu
-			if(turretMenuActive)
+			if(menuVisible)
 			{
 				canvas.drawBitmap(Bitmaps.list.get(8), MilliPointToPoint(375, 0).x, MilliPointToPoint(0, 770).y, paint);
 			}
@@ -311,37 +306,46 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
     }
 	
 	@Override
-    public boolean onTouchEvent(MotionEvent motionEvent) {
+    public boolean onTouchEvent(MotionEvent motionEvent) 
+	{
+		System.out.println("Press detected");
 		
-		BuildPoints confirmBuildPoint = this.selectTower.CheckUserSelection(this.buildPointList, motionEvent.getX(), motionEvent.getY());
-		
-		if(confirmBuildPoint != null)
+		// Check if the user touched a towerSlot
+		for (int i = 0; i < towerSlotList.size(); i++)
 		{
-				if (confirmBuildPoint.occupied == false)
-				{		
-					turretMenuActive = true;
-					selectedPoint = confirmBuildPoint;
-				}
+			if (towerSlotList.get(i).checkTouched(motionEvent))
+			{
+				activeTowerSlot = towerSlotList.get(i);
+				System.out.println("Tower slot touched: " + towerSlotList.get(i));
+			}
+		}
+		
+		if(activeTowerSlot != null)
+		{
+			if (activeTowerSlot.getOccupied() == false)
+			{		
+				menuVisible = true;
+			}
 		}
 		else
 		{
-			if(turretMenuActive == true)
+			if(menuVisible == true)
 			{
-				confirmBuildPoint = this.selectTower.CheckUserSelection(this.menuList, motionEvent.getX(), motionEvent.getY());
-				
-				if (confirmBuildPoint != null && confirmBuildPoint.getOccupied() == false)
+				for (int i = 0; i < menu.GetSize(); i++)
 				{
-					int towerNum = this.selectTower.getTower();
-					Tower _tower = new TowerBasic(100, towerNum, selectedPoint.getXMin(), selectedPoint.getYMin(), 0, 0, _enemyList.get(0));
-					_towerList.add(_tower);
-					confirmBuildPoint.setOccupied(true);
-					
-					turretMenuActive = false;					
-				}	
-				else
-				{
-					turretMenuActive = false;
+					if(menu.getMenuItem(i).checkTouched(motionEvent))
+					{
+						System.out.println("Item pressed: " + menu.getMenuItem(i));
+						menu.getMenuItem(i).OnPress(_enemyList.get(0), this);
+						menuVisible = false;
+						break;
+					}
 				}
+				menuVisible = false;
+			}
+			else
+			{
+				menuVisible = false;
 			}
 		}
 		
@@ -397,18 +401,18 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 	            			currentLevel.AddDistance(1);
 	            			
 	            			//Tower loop
-	            			if(_towerList.size() != 0)
+	            			if(_turretList.size() != 0)
 	            			{
-	            				for(int i = 0; i < _towerList.size(); i++)
+	            				for(int i = 0; i < _turretList.size(); i++)
 	            				{
 	            					if(_enemyList.size() != 0)
 	            					{
-	            						_towerList.get(i).setCurrentTarget(_enemyList.get(0));
-	        							_towerList.get(i).IncrementTimeSinceShot();
+	            						_turretList.get(i).setCurrentTarget(_enemyList.get(0));
+	        							_turretList.get(i).IncrementTimeSinceShot();
 	        							
-	        							if(_towerList.get(i).getTimeSinceShot() == _towerList.get(i).getShotSpeed())
+	        							if(_turretList.get(i).getTimeSinceShot() == _turretList.get(i).getShotSpeed())
 	        							{
-	        								_projectilesList.add(_towerList.get(i).Shoot(bulletHeight, bulletWidth));
+	        								_projectilesList.add(_turretList.get(i).Shoot(bulletHeight, bulletWidth));
 	        							}
 	            					}			
 	            				}
@@ -492,7 +496,6 @@ class Renderer extends SurfaceView implements SurfaceHolder.Callback
 	            			} 
 	            			catch (InterruptedException e) 
 	            			{
-	            				// TODO Auto-generated catch block
 	            				e.printStackTrace();
 	            			}
 	            			postInvalidate();

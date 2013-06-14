@@ -7,7 +7,7 @@ public class Projectile extends Entity
 	private int range;
 	private double angle = 0;
 	
-	public Projectile(int hitPoints, int bitmapid, int x, int y, int damage, int range, int targetX, int targetY) 
+	public Projectile(int hitPoints, int bitmapid, float x, float y, int damage, float targetX, float targetY) 
 	{
 		super(hitPoints, bitmapid, x, y);
 		this.damage = damage;
@@ -34,8 +34,8 @@ public class Projectile extends Entity
 		// Speed of the bullet
 		speedX = 20 ;
 		
-		int x = this.GetX();
-		int y = this.GetY();
+		float x = this.GetX();
+		float y = this.GetY();
 		
 		this.SetX(x+=speedX * Math.sin(angle));
 		this.SetY(y+=speedX * Math.cos(angle));
@@ -43,7 +43,7 @@ public class Projectile extends Entity
 		this.UpdateBoundingBox(height, width);		
 	}
 	
-	public double CalcAngle(int x, int y, int targetX, int targetY)
+	public double CalcAngle(float x, float y, float targetX, float targetY)
 	{
 		double targetDistanceX = targetX - x;
 		double targetDistanceY = targetY - y;
